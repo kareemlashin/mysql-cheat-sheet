@@ -1,0 +1,400 @@
+CREATE DATABASE learn           # -> CREATE;
+DROP DATABASE learn              -> delete;
+DROP DATABASE IF EXISTS learn    -> IF EXISTS ;
+
+
+[datatype]
+numeric    => max_char
+tiny   int    4 | 1234                 max value 127
+small  int    6 | 123456               max value 32767
+medium int    9 | 123456789            
+big    int    20| 12345678901234567890 max value 
+int           11| 12345678901          max value 2.147.483
+
+real == double
+float 
+double
+
+
+bit => 1->64bit
+
+
+serial  => big int 
+
+boolean => true => 1 |  0  -> tiny int 1 or 0
+
+
+[Date & time]
+Date      =>  YYYY-MM-DD 
+datetime  =>  YYYY-MM-DD HH:MM:S
+time      =>  HH:MM:SS
+timestamp => 
+year      =>  YYYY
+
+[ string ]
+text     => store string        large 
+blog     => binary large object 
+var char => not fixed   -> max 255    - fast 
+char     => fixed value -> max 65.535 - slow
+
+enum => array of value not change chose one
+set  => array of data and chose multi
+
+------------------------------------------------------------------
+
+create ; 
+drop ;
+use name;
+exit
+show databases;
+------------------------------------------------------------------
+CREATE TABLE student(
+  id INT(11),
+  name varchar(255) 
+);
+
+CREATE TABLE `name_database`.`name_table` ( `COLUM` INT(11)  , `COLUM` VARCHAR(255)  );
+
+DROP TABLE IF EXISTS date
+
+RENAME TABLE old_name to new_names
+------------------------------------------------------------------
+alter
+-----
+*add
+----
+
+alter table name_table add name_colum datatype();
+alter table name_table add name_colum datatype() after colum;
+alter table name_table add name_colum datatype() first;
+              ---------------------
+*drop
+----- 
+alter table name_table drop name_colum;
+*change
+------
+alter table name_table change name_colum name_colum new_type();
+*modify
+-------
+alter table name_table modify name_colum  new_type();
+------------------------------------------------------------------
+alter TABLE name_table RENAME new_name
+------------------------------------------------------------------
+modify & change
+--------------
+alter table name_table modify name_colum name new_datatype().
+change name new_name new_data_type();
+=============================================================================================
+-Constraint
+Not Null & Unique => 
+not null => empty or value
+Unique   => 
+
+alter table name_table add unique(name_colum);
+
+CREATE TABLE `name_database`.`name_table` ( `COLUM` not null primer key INT(11)  , `COLUM` unique VARCHAR(255)  );
+
+primer key => one 
+
+unique => multi
+=============================================================================================
+Foreign Key => external key 
+cascade 
+set null
+no action
+restrec no update and delete if ind data relation between table
+=============================================================================================
+one to one 
+1   ->  1
+
+visa -> person 
+card -> person
+
+one to many 
+1   ->  *
+
+class  -> student
+street -> person
+floor  -> person
+person -> comment
+person -> orders 
+order  -> products
+
+many to  many 
+*    ->   *
+
+tags   -> persons
+skills -> persons
+
+table1   table2
+       -
+       -
+     table3 
+    table1_id
+    table2_id
+    
+=============================================================================================
+function builtin
+
+select left/right(colum_string,length) from 'table'
+SELECT MID(`name_many`,2,2) FROM `one`
+left(string,length) return string in left many char of length
+mid(string,position,length)
+right(string,length) return string in right many char of length
+=============================================================================================
+many char in string
+SELECT LENGTH(name_many) as name_colum FROM `one` many bytes
+SELECT CHAR_LENGTH(name_many) FROM `one` عدد الاحراف
+=============================================================================================
+upper & lower
+SELECT upper(name_many) AS count FROM `one`
+SELECT ucase(name_many) AS count FROM `one`
+SELECT lower(name_many) AS count FROM `one`
+SELECT lcase(name_many) AS count FROM `one`
+
+=============================================================================================
+SELECT ucase(name_many) AS count FROM `one` ORDER BY char_length(name_many) ASC
+SELECT ucase(name_many) AS count FROM `one` ORDER BY char_length(name_many) DESC
+=============================================================================================
+repeat(colum,many_number)
+replace(colum,'old','new')
+reverse(colum)
+=============================================================================================
+A_I -> auto increment
+=============================================================================================
+
+concat(string,string,...)
+concat_ws(separator,string,...)
+=============================================================================================
+SELECT `id`, `name`,concat("first ",name,' by me',"  and all") as name_colum FROM `news`
+
+SELECT `id`, `name`,concat_ws("-",name,' by me') as byme FROM `news` - between all string "all-data-by me"
+=============================================================================================
+function(function())
+=============================================================================================
+insert(colum,position ,length,new string)
+SELECT `id`, `name`,INSERT(name,char_length(name) ->start,0 -> delete char,' by me') as byme FROM `news`
+---
+Trim(string) space from all start and ends
+Trim(both '@' from string) space from all start and ends
+Trim(leading from string) space -> start
+Trim('@' from string) space -> end
+ltrim()
+rtrim()
+=============================================================================================
+lpad(string,length,padded string) in left
+lpad(string,3,' add'); return 3 char and ' add'->string
+if less than 3 complete add in start
+rpad(string,length,complete) in right
+=============================================================================================
+numeric
+ceil() to up
+
+floor() to down
+
+round() to near number
+round(colum,1) to near number 1.0
+round(colum,2) to near number 1.00
+
+Mod(num,2)
+pow(num,2)
+Truncate() NO .91 ->0.9
+Truncate(id,2) NO .91 ->0.85 -> 0.8
+=============================================================================================
+date&time
+currentTime() 
+current_time() 
+hh:mm:ss
+currentDate() 
+current_date() 
+yyy-mm-dd
+
+now()
+current_timestamp()
+
+dayName(date)
+dayOfMonth(date)
+dayOfWeeek(date)
+dayOfYear(date)
+month()
+week()
+monthName()
+hour()
+minute()
+second()
+
+dateDiff(new,old)
+TIMEDIFF(new,old)
+SELECT * ,TIMEDIFF(now(),"2021-01-10 18:13:03"),now() FROM `numericall` 
+
+SELECT LAST_DAY('2009-05-18');
+SELECT DATE_ADD("2017-06-15", INTERVAL 10 DAY);
+SELECT DATE_SUB("2017-06-15", INTERVAL 10 DAY);
+
+=============================================================================================
+Between و Not Between
+
+SELECT *  FROM `numericall` WHERE id BETWEEN (DATE) and (DATE)
+SELECT *  FROM `numericall` WHERE id BETWEEN (min) and (max)
+
+SELECT *  FROM `numericall` WHERE id BETWEEN 1 and 2
+
+SELECT *  FROM `numericall` WHERE id NOT BETWEEN (min) and (max)
+SELECT *  FROM `numericall` WHERE id NOT BETWEEN (DATE) and (DATE)
+
+SELECT *  FROM `numericall` WHERE id NOT BETWEEN 1 and 2
+=============================================================================================
+In و Not In
+SELECT *  FROM `numericall` WHERE id IN (2)
+SELECT *  FROM `numericall` WHERE id IN (2,3,4,5)
+SELECT *  FROM `numericall` WHERE id IN ("DATE")
+
+SELECT *  FROM `numericall` WHERE id NOT IN (2,3,4)
+SELECT *  FROM `numericall` WHERE id NOT IN ("DATE")
+=============================================================================================
+Like وال Not Like
+SELECT *  FROM `numericall` WHERE iD LIKE "2%" % في الاول
+
+SELECT *  FROM `numericall` WHERE iD LIKE "%2" في الاخر
+
+SELECT *  FROM `numericall` WHERE iD LIKE "%2%" تحتوي
+SELECT *  FROM `numericall` WHERE iD LIKE "_.%" f.%
+SELECT *  FROM `numericall` WHERE iD LIKE "_._%" f.f%
+=============================================================================================
+null
+----
+SELECT *  FROM `numericall` WHERE iD is null
+SELECT *  FROM `numericall` WHERE iD is not null
+=============================================================================================
+
+= 
+
+>
+
+<
+
+>= اكبر من يساوي
+
+<= اصفر من يساوي
+
+and && 
+not ! 
+or  ||
+xor one or two == true not all == true
+=============================================================================================
+if(condition,true,false)
+SELECT `id`,IF(id<=66,concat(id," ok"),concat(id," no")) FROM `numericall` 
+SELECT `id`,IF(id<=66,concat(id," ok"),concat(id," no")) FROM `numericall`
+=============================================================================================
+
+Case
+
+CASE 
+    WHEN id=66 then concat(id,"good")
+    WHEN id=88 then concat(id,"not")
+    ELSE concat(id,"or")
+END 
+---------------------------------------------------------------------------------------------
+CASE id 
+    WHEN 66 then concat(id,"good")
+    WHEN 88 then concat(id,"not")
+    ELSE concat(id,"or")
+END 
+=============================================================================================
+- 
++ 
+* 
+/ 
+=============================================================================================
+USER()
+
+
+SELECT `id` FROM `numericall` ORDER by id
+SELECT `id` FROM `numericall` ORDER by id ASC
+SELECT `id` FROM `numericall` ORDER by id DESC
+
+SUM(id) 
+avg()
+min()
+max()
+COUNT(COLUM) 
+GROUP BY COLUM
+
+GROUP BY COLUM HAVING > CONDITION
+
+=============================================================================================
+Aliases 
+----
+SELECT * FROM `user` u,`lang` l WHERE 
+u.`lang_id`=l.`id`
+=============================================================================================
+Join 
+----
+SELECT * FROM `user`,`lang` WHERE 
+`user`.`lang_id`=`lang`.`id`
+---------------------------------------------------------------------------------------------
+Inner Join
+----------
+   => match data لازم يكون مختار من جدول تاني
+
+   SELECT * FROM `user`
+    INNER JOIN `lang` ON
+   `user`.`lang_id`=`lang`.`id`
+---------------------------------------------------------------------------------------------
+Right Join
+----------
+
+
+---------------------------------------------------------------------------------------------
+Left Join
+---------
+base 
+
+
+
+
+SELECT * FROM `user` RIGHT JOIN `lang` ON 
+`user`.`lang_id`= `lang`.`id` 
+ORDER BY user.id
+
+SELECT * FROM `user` RIGHT JOIN `lang` ON 
+`user`.`lang_id`= `lang`.`id`
+WHERE user.id>2 
+ORDER BY user.id 
+
+
+SELECT * ,COUNT(user.id) FROM `user` RIGHT JOIN `lang` ON 
+`user`.`lang_id`= `lang`.`id`  
+GROUP BY user.id   
+
+
+SELECT * ,COUNT(user.id) FROM `user` RIGHT JOIN `lang` ON 
+`user`.`lang_id`= `lang`.`id`
+WHERE user.id >2
+GROUP BY user.id   
+ORDER BY user.id 
+
+
+
+SELECT * FROM `genres` 
+LIMIT 5;
+LIMIT offset,number;
+
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+INSERT
+------
+INSERT INTO `movies`( `movie_title`) VALUES ("xxxxxxxxxxxxx")
+INSERT INTO `movies`( `movie_title`) VALUES ("dddddddddddddd")
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+UPDATE
+------
+UPDATE `movies` SET `movie_title`="zzzzzzzzzzzzz" WHERE movie_id =26
+UPDATE `movies` SET `movie_title`="ccccccccccccccc" WHERE movie_id =26 AND movie_title="zzzzzzzzzzzzz"
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+DELETE
+------
+DELETE FROM `movies` WHERE movie_id =30
